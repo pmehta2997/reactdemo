@@ -1,103 +1,195 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Head from "next/head";
+import styles from "./page.module.css"; // or use Tailwind
+
+const images = ["/image/s1.jpg", "/image/s2.jpg", "/image/s3.jpg"];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  //  var slideIndex = 1;
+  //     showSlides(slideIndex);
+
+  //     function plusSlides(n) {
+  //       showSlides(slideIndex += n);
+  //     }
+  //     function currentSlide(n) {
+  //       showSlides(slideIndex = n);
+  //     }
+  //     function showSlides(n) {
+  //       let i;
+  //       let slides = document.getElementsByClassName("slides");
+  //       let dots = document.getElementsByClassName("dot");
+  //       if (n > slides.length) { slideIndex = 1 }
+  //       if (n < 1) { slideIndex = slides.length }
+  //       for (i = 0; i < slides.length; i++) {
+  //         slides[i].style.display = "none";
+  //       }
+  //       for (i = 0; i < dots.length; i++) {
+  //         dots[i].className = dots[i].className.replace(" active", "");
+  //         // dots[i].style.add = "background-color:gray";
+  //       }
+  //       slides[slideIndex - 1].style.display = "block";
+  //       dots[slideIndex - 1].className += " active";
+  //     }
+
+  //     function toggleMenu() {
+  //       document.getElementById("leftSection").classList.add("show");
+  //       document.getElementById("rightSection").classList.add("show");
+  //       document.getElementById("leftSection").classList.remove("hide");
+  //       document.getElementById("rightSection").classList.remove("hide");
+  //       document.getElementById("openToggle").style.display = "none";
+  //       document.getElementById("closeToggle").style.display = "block";
+
+  //       document.getElementById("myNav").style.height = "80%";
+  //     }
+
+  //     function toggleMenuClose() {
+  //       document.getElementById("leftSection").classList.remove("show");
+  //       document.getElementById("rightSection").classList.remove("show");
+  //       document.getElementById("leftSection").classList.add("hide");
+  //       document.getElementById("rightSection").classList.add("hide");
+  //       document.getElementById("openToggle").style.display = "block";
+  //       document.getElementById("closeToggle").style.display = "none";
+  //       document.getElementById("myNav").style.height = "0%";
+  //     }
+  //     const toggleBtn = document.getElementById("openToggle");
+
+  //     // Hide mobile menu if screen is resized to desktop
+  //     window.addEventListener("resize", () => {
+  //       if (window.innerWidth >= 1024) { // 1024px or more = desktop
+  //         toggleBtn.classList.add("hidden");
+  //         toggleBtn.style.display = ("none");
+  //       }
+  //       else {
+  //         toggleBtn.style.display = ("block");
+  //       }
+  //     });
+  //     function search_topic() {
+  //       let input = document.getElementById('searchbar').value.toLowerCase();
+  //       let items = document.getElementsByClassName('topics');
+  //       for (let i = 0; i < items.length; i++) {
+  //         if (!items[i].innerHTML.toLowerCase().includes(input)) {
+  //           items[i].style.display = "none";
+  //         } else {
+  //           items[i].style.display = "list-item";
+  //         }
+  //       }
+  //     }
+  return (
+    <>
+      <Head>
+        <title>Manual Slideshow</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+      </Head>
+
+      <div className={styles.header}>
+        <Image src="/image/logo.png" width={120} height={60} alt="Logo" />
+        {/* <span className={styles.hamburger} onClick={toggleMenu} id="openToggle"> */}
+        <span className={styles.hamburger} id="openToggle">
+          &#9776;
+        </span>
+        <div id="myNav" className={styles.overlay}>
+          {/* <span className={styles.close} onClick={toggleMenuClose} id="closeToggle"> */}
+          <span className={styles.close} id="closeToggle">
+            &times;
+          </span>
+          <div className={`${styles.leftSection} ${styles.overlayContent}`}>
+            <button>Learn</button>
+            <a href="#">About</a>
+            <a href="#">Download</a>
+            <a href="#">Blog</a>
+            <a href="#">Docs</a>
+            <a href="#">Contribute</a>
+            <a href="#">Certification</a>
+          </div>
+          <div className={`${styles.rightSection} ${styles.overlayContent}`}>
+            <div className={styles.search}>
+              <i className={`${styles.fa} ${styles.faSearch}`} />
+              <input type="text" placeholder="..start typing" />
+              <kbd className={styles.sKey}>ctrl + k</kbd>
+            </div>
+            <div className={styles.icons}>
+              <span><i className={`${styles.fa} ${styles.faMoon}`} /></span>
+              <span><i className={`${styles.fa} ${styles.faLanguage}`} /></span>
+              <Image src="/image/githubLogo.PNG" width={20} height={20} alt="GitHub" />
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+
+      <div className={styles.demo}>
+        <h1 style={{ textAlign: "center", fontSize: 25, fontWeight: "bold" }}>
+          Manual Slide Show
+        </h1>
+        <div className={styles.slideshowContainer}>
+          <div className={styles.slides}>
+            {/* <Image src={images[slideIndex]} width={1000} height={500} alt={`Slide ${slideIndex + 1}`} /> */}
+            {/* <Image src={images[slideIndex]} width={1000} height={500} alt={`Slide ${slideIndex + 1}`} /> */}
+          </div>
+          {/* <a className={styles.prev} onClick={prevSlide}>❮</a>
+          <a className={styles.next} onClick={nextSlide}>❯</a> */}
+          <a className={styles.prev}>❮</a>
+          <a className={styles.next} >❯</a>
+        </div>
+        <br />
+        <div style={{ textAlign: "center" }}>
+
+        </div>
+      </div>
+
+      <section className={styles.row}>
+        {["/image/i1.jpg", "/image/i2.jpg", "/image/i3.jpg", "/image/i4.jpg", "/image/i5.jpg"].map(
+          (src, idx) => (
+            <div key={idx} className={styles.column}>
+              <Image src={src} width={300} height={200} alt={`Image ${idx + 1}`} />
+            </div>
+          )
+        )}
+      </section>
+
+      <section className={styles.container}>
+        <div className={styles.flexItemLeft} style={{ order: 3 }}>1</div>
+        <div className={styles.flexItemRight}>2</div>
+      </section>
+
+      <section>
+        <h1>How much JavaScript do you need to know to use Node.js?</h1>
+        <p>
+          As a beginner, it's hard to get to a point where you are confident in your programming abilities...
+        </p>
+
+        <h1>What is recommended to learn before diving deep with Node.js?</h1>
+        <ul>
+          {[
+            "Lexical Structure", "Expressions", "Data Types", "Classes", "Variables", "Functions",
+            "Operator", "Arrow Functions", "Loops", "Scopes", "Arrays", "Template Literals",
+            "Strict Mode", "ES6 and beyond", "Asynchronous JavaScript"
+          ].map((topic, idx) => (
+            <li key={idx}><a href="#">{topic}</a></li>
+          ))}
+        </ul>
+
+        <h2>Asynchronous Programming</h2>
+        <p>The following concepts are key:</p>
+        <ul>
+          {[
+            "Asynchronous programming and callbacks",
+            "Promises",
+            "Async and Await",
+            "Closure",
+            "The Event Loop"
+          ].map((item, idx) => (
+            <li key={idx}><a href="#">{item}</a></li>
+          ))}
+        </ul>
+      </section>
+    </>
   );
 }

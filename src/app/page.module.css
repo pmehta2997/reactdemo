@@ -1,0 +1,302 @@
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem 2vw;
+    border-bottom: 0.1rem solid black;
+    flex-wrap: wrap;
+}
+
+.hamburger {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.close {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.rightSection {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.leftSection {
+    padding: 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.leftSection a {
+    text-decoration: none;
+    color: black;
+    font-size: 0.87rem;
+}
+
+.leftSection button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 0.625rem;
+    border-radius: 0.32rem;
+}
+
+/* Overlay */
+.overlay {
+    display: inline-flex;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.overlayContent {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+/* button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+} */
+
+/* Search */
+.search {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d1d5db;
+    border-radius: 18.7rem;
+    padding: 8px 10px;
+}
+
+.search input {
+    border: none;
+    background: transparent;
+    font-size: 14px;
+}
+
+.sKey {
+    margin-left: 8px;
+    padding: 2px 8px;
+    font-size: 14px;
+    font-family: monospace;
+    background: #a9abaf;
+    border-radius: 4px;
+}
+
+.icons img {
+    padding: 5px;
+}
+
+/* Slideshow */
+.demo {
+    margin-top: 1rem;
+    padding: 10px 1.5rem;
+    background-color: #a9abaf;
+    margin: 10px 20px;
+    border: 5px dashed black;
+}
+
+.demo h1 {
+    background-color: brown;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 200;
+    text-align: center;
+}
+
+.demo p {
+    font-size: 1rem;
+    line-height: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.demo ul a {
+    color: green;
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Slides */
+.slideshowContainer {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+.slides {
+    display: block;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: #0c0c0c;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 1px solid #0c0c0c;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.dot.active {
+    background-color: #c55050;
+}
+
+/* Image Grid */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px;
+    background-color: aqua;
+}
+
+.column {
+    max-width: 25%;
+    padding: 0 4px;
+    flex: 1 1 33.33%;
+}
+
+.column img {
+    margin-top: 8px;
+    vertical-align: middle;
+    width: 100%;
+}
+
+/* Flex Container */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(18, 76, 138);
+    font-size: 30px;
+    text-align: center;
+}
+
+.flexItemLeft {
+    background-color: #f1f1f1;
+    padding: 10px;
+    flex: 50%;
+}
+
+.flexItemRight {
+    background-color: dodgerblue;
+    padding: 10px;
+    flex: 50%;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .flexItemLeft,
+    .flexItemRight {
+        flex: 100%;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .close {
+        display: block;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 0%;
+        width: 100%;
+        z-index: 1;
+        background-color: rgba(160, 156, 156, 0.9);
+        overflow-y: hidden;
+        transition: 0.5s;
+        flex-direction: column;
+    }
+
+    .overlayContent a {
+        padding: 8px;
+        font-size: 36px;
+        color: #0c0c0c;
+        text-decoration: none;
+        display: block;
+    }
+
+    .overlayContent a:hover,
+    .overlayContent a:focus {
+        color: #f1f1f1;
+    }
+
+    .column {
+        flex: 1 1 50%;
+        max-width: 50%;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .search input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .demo {
+        padding-top: 5%;
+        padding-bottom: 10%;
+    }
+
+    .column {
+        flex: 0 0 25%;
+        max-width: 100%;
+    }
+
+    .sKey {
+        display: none;
+    }
+
+    .icons img {
+        width: 20px;
+    }
+
+    .overlayContent a {
+        font-size: 16px;
+    }
+}
