@@ -10,13 +10,15 @@
 .hamburger {
     display: none;
     font-size: 1.5rem;
-    cursor: pointer;
 }
 
 .close {
     display: none;
     font-size: 1.5rem;
-    cursor: pointer;
+}
+
+.logo {
+    width: 120px;
 }
 
 .rightSection {
@@ -24,6 +26,7 @@
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 .leftSection {
@@ -32,6 +35,7 @@
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
+
 }
 
 .leftSection a {
@@ -48,7 +52,6 @@
     border-radius: 0.32rem;
 }
 
-/* Overlay */
 .overlay {
     display: inline-flex;
     justify-content: space-between;
@@ -216,7 +219,7 @@
     flex: 50%;
 }
 
-.paragraph {
+.paragraph h1 {
     font-size: 15px;
     font-family: sans-serif;
     font-weight: 200;
@@ -224,7 +227,7 @@
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-    .container {
+    .demo .container {
         flex-direction: column;
     }
 
@@ -235,41 +238,40 @@
 
     .hamburger {
         display: block;
+        align-self: flex-end;
     }
 
     .close {
         display: block;
+        align-self: flex-end;
     }
 
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 0%;
-        width: 100%;
-        z-index: 1;
-        background-color: rgba(160, 156, 156, 0.9);
-        overflow-y: hidden;
-        transition: 0.5s;
+    .closeSection {
+        text-align: right;
+        margin: 5px;
+    }
+
+    .leftSection,
+    .rightSection {
         flex-direction: column;
+        width: 100%;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition: max-height 0.4s ease, opacity 0.3s ease;
+        align-items: flex-start;
     }
 
-    .overlayContent a {
-        padding: 8px;
-        font-size: 36px;
-        color: #0c0c0c;
-        text-decoration: none;
-        display: block;
+    .leftSection.show,
+    .rightSection.show {
+        max-height: 500px;
+        opacity: 1;
     }
 
-    .overlayContent a:hover,
-    .overlayContent a:focus {
-        color: #f1f1f1;
-    }
-
-    .column {
-        flex: 1 1 50%;
-        max-width: 50%;
+    .leftSection.hide,
+    .rightSection.hide {
+        max-height: 0;
+        opacity: 0;
     }
 
     .search {
@@ -277,6 +279,67 @@
     }
 
     .search input {
+        width: 100%;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    .left-menu {
+        display: inline-flex;
+        flex-direction: column;
+    }
+
+    .overlay {
+        height: 0%;
+        width: 100%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgb(148, 145, 145);
+        background-color: rgba(160, 156, 156, 0.9);
+        overflow-y: hidden;
+        transition: 0.5s;
+        flex-direction: column;
+    }
+
+    .overlayContent {
+        position: relative;
+        width: 100%;
+        text-align: center;
+    }
+
+    .overlay a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 36px;
+        color: #0c0c0c;
+        display: block;
+        transition: 0.3s;
+
+    }
+
+    .overlay a:hover,
+    .overlay a:focus {
+        color: #f1f1f1;
+    }
+
+    .overlay .closebtn {
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+        align-items: flex-end;
+    }
+
+    .column {
+        flex: 1 1 50%;
+        max-width: 50%;
+    }
+
+    .column .img {
         width: 100%;
     }
 }
@@ -302,5 +365,41 @@
 
     .overlayContent a {
         font-size: 16px;
+        max-height: fit-content;
+        opacity: 1;
     }
+
+    .show {
+        height: 100% !important;
+        display: block !important;
+    }
+
+    .leftSection,
+    .rightSection {
+        flex-direction: column;
+        width: 100%;
+        overflow: hidden;
+        max-height: fit-content;
+        opacity: 1;
+        transition: max-height 0.4s ease, opacity 0.3s ease;
+        align-items: flex-start;
+    }
+
+    .leftSection.show,
+    .rightSection.show {
+        max-height: 500px;
+        opacity: 1;
+    }
+
+    .leftSection.hide,
+    .rightSection.hide {
+        max-height: 0;
+        opacity: 0;
+    }
+
+}
+
+.show {
+    height: 100% !important;
+    display: block !important;
 }

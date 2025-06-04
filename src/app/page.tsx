@@ -17,13 +17,23 @@ export default function Home() {
     setSlideIndex((prevIndex) => (prevIndex + 1) % images.length);
   }
   const prevSlide = () => {
-    setSlideIndex((prevIndex) => (prevIndex - 1) % images.length);
+    setSlideIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+
+    console.log("number", slideIndex);
   }
   const selectSlide = (index: number) => {
     setSlideIndex(index);
   }
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCloseButtonVisible, setCloseButtonVisible] = useState(false)
 
-  console.log("number", slideIndex);
+  const toggleMenu = () => {
+    console.log("Clicked")
+    setIsMenuOpen(!isMenuOpen);
+    setCloseButtonVisible(true);
+  };
+  const toggleMenuClose = () => setIsMenuOpen(false);
+
   return (
     <>
       <Head>
@@ -37,15 +47,17 @@ export default function Home() {
 
       <div className={styles.header}>
         <Image src="/image/logo.png" width={120} height={60} alt="Logo" />
-        {/* <span className={styles.hamburger} onClick={toggleMenu} id="openToggle"> </span> */}
-        <span className={styles.hamburger} id="openToggle">
+        <span className={styles.hamburger} onClick={toggleMenu} id="openToggle">
           &#9776;
         </span>
-        <div id="myNav" className={styles.overlay}>
-          {/* <span className={styles.close} onClick={toggleMenuClose} id="closeToggle" /> */}
-          <span className={styles.close} id="closeToggle">
-            &times;
-          </span>
+        <div id="myNav" className={`${styles.overlay} ${isMenuOpen ? styles.show : ''}`}>
+          <div className={styles.closeSection}>
+            {
+              isCloseButtonVisible ? <span className={styles.close} onClick={toggleMenuClose} id="closeToggle">
+                &times;
+              </span> : null
+            }
+          </div>
           <div className={`${styles.leftSection} ${styles.overlayContent}`}>
             <button>Learn</button>
             <a href="#">About</a>
@@ -67,8 +79,8 @@ export default function Home() {
               <Image src="/image/githubLogo.PNG" width={20} height={20} alt="GitHub" />
             </div>
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
 
       <div className={styles.demo}>
         <h1 style={{ textAlign: "center", fontSize: 25, fontWeight: "bold" }}>
@@ -77,21 +89,14 @@ export default function Home() {
         <div className={styles.slideshowContainer}>
           <div className={styles.slides}>
             {images.map((src, index) => (
-              <div
-                key={index}
-                style={{ display: index === slideIndex ? "block" : "none" }}
-                className="mySlide"
-              >
+              <div key={index} style={{ display: index === slideIndex ? "block" : "none" }} className={styles.slides}>
                 <Image src={src} width={1000} height={500} alt={`Slide ${index + 1}`} />
               </div>
             ))}
 
-            <a className={styles.prev} onClick={prevSlide}>❮</a>
-            <a className={styles.next} onChange={() => nextSlide()}>❯</a>
+            <a className={styles.prev} onClick={() => prevSlide()}>❮</a>
+            <a className={styles.next} onClick={() => nextSlide()}>❯</a>
           </div>
-
-          <a className={styles.prev}>❮</a>
-          <a className={styles.next} >❯</a>
         </div>
         <br />
         <div style={{ textAlign: "center" }}>
@@ -121,12 +126,12 @@ export default function Home() {
       </section>
 
       <div className={styles.paragraph}>
-        <h1>How much JavaScript do you need to know to use Node.js?</h1>
-        <p className={styles.paragraph}>
+        <h1 style={{ fontSize: "20px", fontWeight: "bolder" }}>How much JavaScript do you need to know to use Node.js?</h1>
+        <br />  <p className={styles.paragraph}>
           As a beginner, it's hard to get to a point where you are confident in your programming abilities...
         </p>
-
-        <h1>What is recommended to learn before diving deep with Node.js?</h1>
+        <br />
+        <h1 style={{ fontSize: "20px", fontWeight: "bold" }}>What is recommended to learn before diving deep with Node.js?</h1>
         <ul style={{ listStyleType: "disc", paddingLeft: "20px" }}>
           {[
             "Lexical Structure", "Expressions", "Data Types", "Classes", "Variables", "Functions",
@@ -137,8 +142,8 @@ export default function Home() {
           ))}
         </ul>
 
-        <h2>Asynchronous Programming</h2>
-        <p>The following concepts are key:</p>
+        <h2 style={{ fontSize: "20px", fontWeight: "bolder" }}>Asynchronous Programming</h2>
+        <p style={{ fontSize: "20px", fontWeight: "bold" }}>The following concepts are key:</p>
         <ul>
           {[
             "Asynchronous programming and callbacks",
