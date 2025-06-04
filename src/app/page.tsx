@@ -9,75 +9,21 @@ const images = ["/image/s1.jpg", "/image/s2.jpg", "/image/s3.jpg"];
 
 export default function Home() {
 
-  //  var slideIndex = 1;
-  //     showSlides(slideIndex);
+  const [slideIndex, setSlideIndex] = useState(0);
 
-  //     function plusSlides(n) {
-  //       showSlides(slideIndex += n);
-  //     }
-  //     function currentSlide(n) {
-  //       showSlides(slideIndex = n);
-  //     }
-  //     function showSlides(n) {
-  //       let i;
-  //       let slides = document.getElementsByClassName("slides");
-  //       let dots = document.getElementsByClassName("dot");
-  //       if (n > slides.length) { slideIndex = 1 }
-  //       if (n < 1) { slideIndex = slides.length }
-  //       for (i = 0; i < slides.length; i++) {
-  //         slides[i].style.display = "none";
-  //       }
-  //       for (i = 0; i < dots.length; i++) {
-  //         dots[i].className = dots[i].className.replace(" active", "");
-  //         // dots[i].style.add = "background-color:gray";
-  //       }
-  //       slides[slideIndex - 1].style.display = "block";
-  //       dots[slideIndex - 1].className += " active";
-  //     }
+  const nextSlide = () => {
+    // debugger;
+    console.log("clicked");
+    setSlideIndex((prevIndex) => (prevIndex + 1) % images.length);
+  }
+  const prevSlide = () => {
+    setSlideIndex((prevIndex) => (prevIndex - 1) % images.length);
+  }
+  const selectSlide = (index: number) => {
+    setSlideIndex(index);
+  }
 
-  //     function toggleMenu() {
-  //       document.getElementById("leftSection").classList.add("show");
-  //       document.getElementById("rightSection").classList.add("show");
-  //       document.getElementById("leftSection").classList.remove("hide");
-  //       document.getElementById("rightSection").classList.remove("hide");
-  //       document.getElementById("openToggle").style.display = "none";
-  //       document.getElementById("closeToggle").style.display = "block";
-
-  //       document.getElementById("myNav").style.height = "80%";
-  //     }
-
-  //     function toggleMenuClose() {
-  //       document.getElementById("leftSection").classList.remove("show");
-  //       document.getElementById("rightSection").classList.remove("show");
-  //       document.getElementById("leftSection").classList.add("hide");
-  //       document.getElementById("rightSection").classList.add("hide");
-  //       document.getElementById("openToggle").style.display = "block";
-  //       document.getElementById("closeToggle").style.display = "none";
-  //       document.getElementById("myNav").style.height = "0%";
-  //     }
-  //     const toggleBtn = document.getElementById("openToggle");
-
-  //     // Hide mobile menu if screen is resized to desktop
-  //     window.addEventListener("resize", () => {
-  //       if (window.innerWidth >= 1024) { // 1024px or more = desktop
-  //         toggleBtn.classList.add("hidden");
-  //         toggleBtn.style.display = ("none");
-  //       }
-  //       else {
-  //         toggleBtn.style.display = ("block");
-  //       }
-  //     });
-  //     function search_topic() {
-  //       let input = document.getElementById('searchbar').value.toLowerCase();
-  //       let items = document.getElementsByClassName('topics');
-  //       for (let i = 0; i < items.length; i++) {
-  //         if (!items[i].innerHTML.toLowerCase().includes(input)) {
-  //           items[i].style.display = "none";
-  //         } else {
-  //           items[i].style.display = "list-item";
-  //         }
-  //       }
-  //     }
+  console.log("number", slideIndex);
   return (
     <>
       <Head>
@@ -91,12 +37,12 @@ export default function Home() {
 
       <div className={styles.header}>
         <Image src="/image/logo.png" width={120} height={60} alt="Logo" />
-        {/* <span className={styles.hamburger} onClick={toggleMenu} id="openToggle"> */}
+        {/* <span className={styles.hamburger} onClick={toggleMenu} id="openToggle"> </span> */}
         <span className={styles.hamburger} id="openToggle">
           &#9776;
         </span>
         <div id="myNav" className={styles.overlay}>
-          {/* <span className={styles.close} onClick={toggleMenuClose} id="closeToggle"> */}
+          {/* <span className={styles.close} onClick={toggleMenuClose} id="closeToggle" /> */}
           <span className={styles.close} id="closeToggle">
             &times;
           </span>
@@ -130,25 +76,40 @@ export default function Home() {
         </h1>
         <div className={styles.slideshowContainer}>
           <div className={styles.slides}>
-            {/* <Image src={images[slideIndex]} width={1000} height={500} alt={`Slide ${slideIndex + 1}`} /> */}
-            {/* <Image src={images[slideIndex]} width={1000} height={500} alt={`Slide ${slideIndex + 1}`} /> */}
+            {images.map((src, index) => (
+              <div
+                key={index}
+                style={{ display: index === slideIndex ? "block" : "none" }}
+                className="mySlide"
+              >
+                <Image src={src} width={1000} height={500} alt={`Slide ${index + 1}`} />
+              </div>
+            ))}
+
+            <a className={styles.prev} onClick={prevSlide}>❮</a>
+            <a className={styles.next} onChange={() => nextSlide()}>❯</a>
           </div>
-          {/* <a className={styles.prev} onClick={prevSlide}>❮</a>
-          <a className={styles.next} onClick={nextSlide}>❯</a> */}
+
           <a className={styles.prev}>❮</a>
           <a className={styles.next} >❯</a>
         </div>
         <br />
         <div style={{ textAlign: "center" }}>
-
+          {images.map((_, index) => (
+            <span
+              key={index}
+              className={`${styles.dot} ${slideIndex === index ? styles.active : ""}`}
+              onClick={() => selectSlide(index)}
+            />
+          ))}
         </div>
       </div>
 
       <section className={styles.row}>
         {["/image/i1.jpg", "/image/i2.jpg", "/image/i3.jpg", "/image/i4.jpg", "/image/i5.jpg"].map(
-          (src, idx) => (
-            <div key={idx} className={styles.column}>
-              <Image src={src} width={300} height={200} alt={`Image ${idx + 1}`} />
+          (src, index) => (
+            <div key={index} className={styles.column}>
+              <Image src={src} width={300} height={200} alt={`Image ${index + 1}`} />
             </div>
           )
         )}
@@ -159,20 +120,20 @@ export default function Home() {
         <div className={styles.flexItemRight}>2</div>
       </section>
 
-      <section>
+      <div className={styles.paragraph}>
         <h1>How much JavaScript do you need to know to use Node.js?</h1>
-        <p>
+        <p className={styles.paragraph}>
           As a beginner, it's hard to get to a point where you are confident in your programming abilities...
         </p>
 
         <h1>What is recommended to learn before diving deep with Node.js?</h1>
-        <ul>
+        <ul style={{ listStyleType: "disc", paddingLeft: "20px" }}>
           {[
             "Lexical Structure", "Expressions", "Data Types", "Classes", "Variables", "Functions",
             "Operator", "Arrow Functions", "Loops", "Scopes", "Arrays", "Template Literals",
             "Strict Mode", "ES6 and beyond", "Asynchronous JavaScript"
-          ].map((topic, idx) => (
-            <li key={idx}><a href="#">{topic}</a></li>
+          ].map((topic, index) => (
+            <li key={index}><a href="#">{topic}</a></li>
           ))}
         </ul>
 
@@ -185,11 +146,11 @@ export default function Home() {
             "Async and Await",
             "Closure",
             "The Event Loop"
-          ].map((item, idx) => (
-            <li key={idx}><a href="#">{item}</a></li>
+          ].map((item, index) => (
+            <li key={index}><a href="#">{item}</a></li>
           ))}
         </ul>
-      </section>
+      </div>
     </>
   );
 }
